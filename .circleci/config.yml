@@ -61,9 +61,6 @@ workflows:
   build_and_release:
     jobs:
       - build
-      - beta_deploy:
-          requires:
-            - build
       - release:
           requires:
             - build
