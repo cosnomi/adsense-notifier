@@ -1,6 +1,6 @@
 {
   "name": "adsense-notifier",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "dest/index.js",
   "repository": "git@github.com:cosnomi/adsense-notifier.git",
   "author": "Cosnomi <cosnomi@cosnomi.com>",
