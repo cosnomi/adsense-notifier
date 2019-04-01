@@ -1,0 +1,73 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15-stretch
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+      - run:
+          name: yarn build
+          command: |
+            yarn install
+            yarn build
+            rm -rf ./node_modules
+      - run:
+          name: Create artifact
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y zip
+            mkdir to_upload
+            mv dest/* to_upload
+            yarn install --production
+            mv node_modules to_upload
+            cd to_upload
+            sudo chmod 755 ./* -R
+            mkdir -p /tmp/workspace
+            zip -r /tmp/workspace/to_upload *
+      - store_artifacts:
+          path: /tmp/workspace/to_upload.zip
+          destination: to_upload.zip
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - to_upload.zip
+  release:
+    docker:
+      - image: circleci/node:10.15-stretch
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Install libraries
+          command: |
+            echo "deb http://ftp.debian.org/debian stretch-backports main" | sudo tee -a /etc/apt/sources.list
+            sudo apt-get update
+            sudo apt-get -t stretch-backports install -y git golang
+            export GOPATH=$HOME/go
+            echo 'export PATH='"$GOPATH"'/bin:$PATH' >> $BASH_ENV
+            go get github.com/tcnksm/ghr
+      - run:
+          name: Release
+          command: |
+            VERSION=$(git describe)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/workspace/to_upload.zip
+workflows:
+  version: 2
+  build_and_release:
+    jobs:
+      - build
+      - beta_deploy:
+          requires:
+            - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

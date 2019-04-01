@@ -1,0 +1,16 @@
+{
+  "name": "adsense-notifier",
+  "version": "1.0.0",
+  "main": "dest/index.js",
+  "repository": "git@github.com:cosnomi/adsense-notifier.git",
+  "author": "Cosnomi <cosnomi@cosnomi.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dest/index.js",
+    "experiment": "npx tsc && node dest/experiments/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.1"
+  }
+}
