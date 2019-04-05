@@ -8,5 +8,7 @@ const oauth2Client = new google.auth.OAuth2(
 const tokens = {}; // get from env var?
 const scope = "https://www.googleapis.com/auth/adsense.readonly";
 const key = "something";
-oauth2Client.setCredentials(tokens);
+oauth2Client.setCredentials({
+  refresh_token: process.env.API_REFRESH_TOKEN
+});
 const adsense = google.adsense({ version: "v1_4", auth: oauth2Client });

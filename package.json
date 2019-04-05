@@ -11,6 +11,7 @@
     "experiment": "npx tsc && node dest/experiments/index.js"
   },
   "devDependencies": {
+    "@types/node": "^11.13.0",
     "typescript": "^3.4.1"
   },
   "dependencies": {
