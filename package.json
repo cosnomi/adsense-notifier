@@ -7,8 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dest/index.js",
-    "experiment": "npx tsc && node dest/experiments/index.js"
+    "start": "npx tsc && node dest/index.js"
   },
   "devDependencies": {
     "@types/node": "^11.13.0",

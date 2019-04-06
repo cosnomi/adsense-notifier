@@ -1,5 +1,6 @@
 import { google } from "googleapis";
 import { oauth2 } from "googleapis/build/src/apis/oauth2";
+import { getReportData } from "./report";
 function getAuthenticatedOAuth2Client(
   clientId: string,
   clientSecret: string,
@@ -32,4 +33,8 @@ const adsense = google.adsense({
     refresh_token
   )
 });
-console.log(adsense.adunits.get());
+(async () => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  console.log(await getReportData(adsense, yesterday));
+})();
