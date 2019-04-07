@@ -13,7 +13,7 @@ export type Report = {
   lastWeekSameDay: DailyReportItem;
   week: WeeklyReportItem;
   month: MonthlyReportItem;
-  unpaid: number;
+  unpaid: any;
 };
 
 export async function getReportData(
@@ -100,6 +100,20 @@ export async function getReportData(
     week: weeklyReport,
     today: dailyReport,
     lastWeekSameDay,
-    unpaid: 0 // TODO
+    unpaid: await getUnpaid(adsense) // TODO
   };
+}
+async function getUnpaid(adsense: adsense_v1_4.Adsense): Promise<number> {
+  const paymentItems = (await adsense.payments.list()).data.items;
+  if (!paymentItems) throw Error("Cannot fetch payment data");
+  return paymentItems.reduce((prev, current) => {
+    if (current.id === "unpaid") {
+      if (!current.paymentAmount) {
+        console.error("No paymentAmount column");
+        return prev;
+      }
+      return prev + parseInt(current.paymentAmount);
+    }
+    return prev;
+  }, 0);
 }
