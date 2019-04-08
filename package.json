@@ -10,11 +10,13 @@
     "start": "npx tsc && node dest/index.js"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^11.13.0",
     "@types/readline-sync": "^1.4.3",
     "typescript": "^3.4.1"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "googleapis": "^39.2.0",
     "readline-sync": "^1.4.9"
   }
