@@ -1,7 +1,7 @@
 import { google } from "googleapis";
 import { getReportData } from "./report";
 import { getAuthenticatedOAuth2Client } from "./adsense_auth";
-import {notify} from './slack'
+import { notify } from "./slack";
 (async () => {
   const {
     installed: { client_id, client_secret, redirect_uri }
@@ -18,6 +18,6 @@ import {notify} from './slack'
   });
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  const report = await getReportData(adsense, yesterday));
-  notify(report)
+  const report = await getReportData(adsense, yesterday);
+  notify(report);
 })();
