@@ -12,7 +12,10 @@ const webhookUrl = process.env.SLACK_WEBHOOK_URL;
 
 export async function notify(report: Report) {
   const date = new Date();
-  if (date === new Date(date.getFullYear(), date.getMonth() + 1, 0))
+  if (
+    date.getTime() ===
+    new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime()
+  )
     notifyMonthlyReport(report);
   else if (date.getDate() === 6) notifyWeeklyReport(report);
   else notifyDailyReport(report);
