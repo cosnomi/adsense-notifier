@@ -23,7 +23,7 @@ async function notifyDailyReport(report: Report) {
   axios.post(webhookUrl, {
     text: `Daily Report: ${today.earnings} JPY / ${today.clicks} clicks / ${
       today.pageViews
-    } view`
+    } views`
   });
 }
 
@@ -32,7 +32,7 @@ async function notifyWeeklyReport(report: Report) {
   axios.post(webhookUrl, {
     text: `Weekly Report: ${week.earnings}JPY ${week.clicks} clicks ${
       week.pageViews
-    }view / (unpaid: ${unpaid} JPY)`
+    } views / (unpaid: ${unpaid} JPY)`
   });
 }
 
@@ -41,6 +41,6 @@ function notifyMonthlyReport(report: Report) {
   axios.post(webhookUrl, {
     text: `Monthly Report: ${month.earnings}JPY ${month.clicks} clicks ${
       month.pageViews
-    }view`
+    } views`
   });
 }
