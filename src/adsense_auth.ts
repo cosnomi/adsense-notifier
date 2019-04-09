@@ -1,6 +1,5 @@
 import { google } from "googleapis";
-import { oauth2 } from "googleapis/build/src/apis/oauth2";
-function getAuthenticatedOAuth2Client(
+export function getAuthenticatedOAuth2Client(
   clientId: string,
   clientSecret: string,
   redirectUri: string,
@@ -19,16 +18,3 @@ function getAuthenticatedOAuth2Client(
   });
   return oauth2Client;
 }
-const {
-  installed: { client_id, client_secret, redirect_uri }
-} = require("./client.json");
-const { refresh_token } = require("./token.json");
-const adsense = google.adsense({
-  version: "v1.4",
-  auth: getAuthenticatedOAuth2Client(
-    client_id,
-    client_secret,
-    redirect_uri,
-    refresh_token
-  )
-});
