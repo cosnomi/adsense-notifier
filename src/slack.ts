@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  DailyReportItem,
-  WeeklyReportItem,
-  MonthlyReportItem,
-  Report
-} from "./report";
+import { Report } from "./report";
 if (!process.env.SLACK_WEBHOOK_URL) {
   throw Error("SLACK_WEBHOOK_URL is not defined.");
 }

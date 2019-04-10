@@ -31,5 +31,5 @@ export async function lambda_handler(event: any, context: any) {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const report = await getReportData(adsense, yesterday);
-  notify(report);
+  await notify(report);
 }
