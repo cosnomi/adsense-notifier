@@ -30,6 +30,7 @@ export async function lambda_handler(event: any, context: any) {
   });
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setHours(yesterday.getHours() + 9); // UTC -> JST
   const report = await getReportData(adsense, yesterday);
   await notify(report);
 }
