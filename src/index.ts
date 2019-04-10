@@ -2,7 +2,8 @@ import { google } from "googleapis";
 import { getReportData } from "./report";
 import { getAuthenticatedOAuth2Client } from "./adsense_auth";
 import { notify } from "./slack";
-(async () => {
+
+export async function lambda_handler(event: any, context: any) {
   const {
     installed: { client_id, client_secret, redirect_uri }
   } = require("./client.json");
@@ -20,4 +21,4 @@ import { notify } from "./slack";
   yesterday.setDate(yesterday.getDate() - 1);
   const report = await getReportData(adsense, yesterday);
   notify(report);
-})();
+}
