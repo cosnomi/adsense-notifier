@@ -18,7 +18,7 @@ export async function notify(report: Report) {
 
 async function notifyDailyReport(report: Report) {
   const { today, lastWeekSameDay } = report;
-  axios.post(webhookUrl, {
+  await axios.post(webhookUrl, {
     text: `Daily Report: ${today.earnings} JPY / ${today.clicks} clicks / ${
       today.pageViews
     } views`
@@ -27,7 +27,7 @@ async function notifyDailyReport(report: Report) {
 
 async function notifyWeeklyReport(report: Report) {
   const { week, unpaid } = report;
-  axios.post(webhookUrl, {
+  await axios.post(webhookUrl, {
     text: `Weekly Report: ${week.earnings}JPY ${week.clicks} clicks ${
       week.pageViews
     } views / (unpaid: ${unpaid} JPY)`
@@ -36,7 +36,7 @@ async function notifyWeeklyReport(report: Report) {
 
 function notifyMonthlyReport(report: Report) {
   const { month } = report;
-  axios.post(webhookUrl, {
+  await axios.post(webhookUrl, {
     text: `Monthly Report: ${month.earnings}JPY ${month.clicks} clicks ${
       month.pageViews
     } views`
