@@ -11,9 +11,9 @@ export async function notify(report: Report) {
     date.getTime() ===
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime()
   )
-    notifyMonthlyReport(report);
-  else if (date.getDate() === 6) notifyWeeklyReport(report);
-  else notifyDailyReport(report);
+    await notifyMonthlyReport(report);
+  else if (date.getDate() === 6) await notifyWeeklyReport(report);
+  else await notifyDailyReport(report);
 }
 
 async function notifyDailyReport(report: Report) {
@@ -34,7 +34,7 @@ async function notifyWeeklyReport(report: Report) {
   });
 }
 
-function notifyMonthlyReport(report: Report) {
+async function notifyMonthlyReport(report: Report) {
   const { month } = report;
   await axios.post(webhookUrl, {
     text: `Monthly Report: ${month.earnings}JPY ${month.clicks} clicks ${
