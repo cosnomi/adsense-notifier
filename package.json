@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "googleapis": "^39.2.0",
-    "readline-sync": "^1.4.9"
+    "readline-sync": "^1.4.9",
+    "zaim": "^2.2.0"
   }
 }

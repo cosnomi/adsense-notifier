@@ -2,6 +2,7 @@ import { google } from "googleapis";
 import { getReportData } from "./report";
 import { getAuthenticatedOAuth2Client } from "./adsense_auth";
 import { notify } from "./slack";
+import { createZaimIncome } from "./zaim";
 
 export async function lambda_handler(event: any, context: any) {
   if (
@@ -33,4 +34,27 @@ export async function lambda_handler(event: any, context: any) {
   yesterday.setHours(yesterday.getHours() + 9); // UTC -> JST
   const report = await getReportData(adsense, yesterday);
   await notify(report);
+  if (
+    !process.env.ZAIM_CONSUMER_KEY ||
+    !process.env.ZAIM_CONSUMER_SECRET ||
+    !process.env.ZAIM_ACCESS_TOKEN ||
+    !process.env.ZAIM_ACCESS_TOKEN_SECRET ||
+    !process.env.ZAIM_CATEGORY_ID ||
+    !process.env.ZAIM_TO_ACCOUNT_ID
+  ) {
+    console.error("Zaim config error. Skipping...");
+    return;
+  }
+  await createZaimIncome(
+    {
+      consumerKey: process.env.ZAIM_CONSUMER_KEY,
+      consumerSecret: process.env.ZAIM_CONSUMER_SECRET,
+      accessToken: process.env.ZAIM_ACCESS_TOKEN,
+      accessTokenSecret: process.env.ZAIM_ACCESS_TOKEN_SECRET
+    },
+    report.today.earnings,
+    parseInt(process.env.ZAIM_CATEGORY_ID),
+    parseInt(process.env.ZAIM_TO_ACCOUNT_ID),
+    yesterday
+  );
 }
