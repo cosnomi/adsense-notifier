@@ -10,13 +10,15 @@ export async function createZaimIncome(
   auth: ZaimAuth,
   amount: number,
   category_id: number,
-  to_account_id: number
+  to_account_id: number,
+  date?: Date
 ) {
   const zaim = new Zaim(auth);
   await zaim.createIncome({
     amount,
     category_id,
     to_account_id,
-    comment: "Created by adsense-notifier"
+    comment: "Created by adsense-notifier",
+    date: date
   });
 }

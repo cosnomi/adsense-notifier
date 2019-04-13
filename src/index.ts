@@ -54,6 +54,7 @@ export async function lambda_handler(event: any, context: any) {
     },
     report.today.earnings,
     parseInt(process.env.ZAIM_CATEGORY_ID),
-    parseInt(process.env.ZAIM_TO_ACCOUNT_ID)
+    parseInt(process.env.ZAIM_TO_ACCOUNT_ID),
+    yesterday
   );
 }
