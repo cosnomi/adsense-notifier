@@ -42,7 +42,7 @@ jobs:
           at: .
       - run:
           name: Install aws packages
-          command: pip install awscli aws-sam-cli
+          command: sudo pip install awscli aws-sam-cli
       - run:
           name: Show versions
           command: |
