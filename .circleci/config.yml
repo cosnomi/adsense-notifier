@@ -52,7 +52,7 @@ jobs:
           name: Deploy via AWS SAM
           command: |
             sam package --template-file template.yaml --output-template-file template-packed.yaml --s3-bucket adsense-notifier
-            sam deploy --template-file template-packed.yaml --stack-name adsense-notifier
+            sam deploy --template-file template-packed.yaml --stack-name adsense-notifier --capabilities CAPABILITY_IAM
   release:
     docker:
       - image: circleci/node:10.15-stretch
