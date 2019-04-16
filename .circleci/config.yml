@@ -18,30 +18,49 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y zip
-            mkdir to_upload
-            mv dest/* to_upload
+            mkdir files_to_upload
+            cp dest/* files_to_upload
             yarn install --production
-            mv node_modules to_upload
-            cd to_upload
-            sudo chmod 755 ./* -R
-            mkdir -p /tmp/workspace
-            zip -r /tmp/workspace/to_upload *
+            cp node_modules files_to_upload
+            sudo chmod 755 ./files_to_upload/* -R
+            zip -r ./to_upload ./files_to_upload/*
       - store_artifacts:
-          path: /tmp/workspace/to_upload.zip
+          path: ./to_upload.zip
           destination: to_upload.zip
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: .
           paths:
-            - to_upload.zip
+            - .
+  # AWS credentials must be provided via environment variables
+  deploy:
+    docker:
+      - image: circleci/python:3.6.4
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install aws packages
+          command: pip install awscli aws-sam-cli
+      - run:
+          name: Show versions
+          command: |
+            aws --version
+            sam --version
+      - run:
+          name: Deploy via AWS SAM
+          command: |
+            sam package --template-file template.yaml --output-template-file template-packed.yaml --s3-bucket adsense-notifier
+            sam deploy --template-file template-packed.yaml --stack-name adsense-notifier
   release:
     docker:
       - image: circleci/node:10.15-stretch
         environment:
           TZ: Asia/Tokyo
     steps:
-      - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - run:
           name: Install libraries
           command: |
@@ -55,12 +74,15 @@ jobs:
           name: Release
           command: |
             VERSION=$(git describe)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/workspace/to_upload.zip
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./to_upload.zip
 workflows:
   version: 2
   build_and_release:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
       - release:
           requires:
             - build
