@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: adsense-notifier
+Resources:
+  AdsenseNotifier:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: dest/index.lambda_handler
+      Runtime: nodejs8.10
+      MemorySize: 128
+      Timeout: 5
+      Events:
+        DailyEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(5 15 * * ? *)
