@@ -13,7 +13,7 @@ export async function notify(report: Report) {
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime()
   )
     await notifyMonthlyReport(report);
-  else if (date.getDate() === 6) await notifyWeeklyReport(report);
+  else if (date.getDay() === 0) await notifyWeeklyReport(report);
   else await notifyDailyReport(report);
 }
 
