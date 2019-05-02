@@ -2,10 +2,11 @@ type NotifyType = "daily" | "weekly" | "monthly";
 
 export async function getNotifyType(date: Date): Promise<NotifyType> {
   if (
-    date.getTime() ===
-    new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime()
+    date.getDate() ===
+    new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
   )
     return "monthly";
-  else if (date.getDay() === 0) return "weekly";
+  // Yesterday is Saturday.
+  else if (date.getDay() === 6) return "weekly";
   else return "daily";
 }
