@@ -13,7 +13,7 @@ jobs:
             yarn install
             yarn build
       - run:
-          name: yarn build
+          name: yarn test
           command: |
             yarn run test
       - run:
