@@ -1,19 +1,16 @@
 import axios from "axios";
 import { Report } from "./report";
+import { getNotificationType } from "./notify_type";
 if (!process.env.SLACK_WEBHOOK_URL) {
   throw Error("SLACK_WEBHOOK_URL is not defined.");
 }
 const webhookUrl = process.env.SLACK_WEBHOOK_URL;
 const slackUsername = "Adsense";
 
-export async function notify(report: Report) {
-  const date = new Date();
-  if (
-    date.getTime() ===
-    new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime()
-  )
-    await notifyMonthlyReport(report);
-  else if (date.getDay() === 0) await notifyWeeklyReport(report);
+export async function notify(date: Date, report: Report) {
+  const notifyType = await getNotificationType(date);
+  if (notifyType === "monthly") await notifyMonthlyReport(report);
+  else if (notifyType === "weekly") await notifyWeeklyReport(report);
   else await notifyDailyReport(report);
 }
 

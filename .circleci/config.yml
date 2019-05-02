@@ -12,15 +12,19 @@ jobs:
           command: |
             yarn install
             yarn build
-            rm -rf ./node_modules
+      - run:
+          name: yarn test
+          command: |
+            yarn run test
       - run:
           name: Create artifact
           command: |
             sudo apt-get update
             sudo apt-get install -y zip
+            rm -rf ./node_modules
+            yarn install --production
             mkdir files_to_upload
             cp dest/* files_to_upload
-            yarn install --production
             cp -r node_modules files_to_upload
             sudo chmod 755 ./files_to_upload/* -R
             zip -r ./to_upload ./files_to_upload/*
