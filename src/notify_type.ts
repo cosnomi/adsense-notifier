@@ -1,6 +1,6 @@
-type NotifyType = "daily" | "weekly" | "monthly";
+export type NotifyType = "daily" | "weekly" | "monthly";
 
-export async function getNotificationType(date: Date): Promise<NotifyType> {
+export function getNotificationType(date: Date): NotifyType {
   if (
     date.getDate() ===
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()

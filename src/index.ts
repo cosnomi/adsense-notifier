@@ -3,6 +3,7 @@ import { getReportData } from "./report";
 import { getAuthenticatedOAuth2Client } from "./adsense_auth";
 import { notify } from "./slack";
 import { createZaimIncome } from "./zaim";
+import { getNotificationType } from "./notify_type";
 
 export async function lambda_handler(event: any, context: any) {
   if (
@@ -33,7 +34,8 @@ export async function lambda_handler(event: any, context: any) {
   yesterday.setDate(yesterday.getDate() - 1);
   yesterday.setHours(yesterday.getHours() + 9); // UTC -> JST
   const report = await getReportData(adsense, yesterday);
-  await notify(yesterday, report);
+  const notificationType = getNotificationType(yesterday);
+  await notify(report, notificationType);
   if (
     !process.env.ZAIM_CONSUMER_KEY ||
     !process.env.ZAIM_CONSUMER_SECRET ||
