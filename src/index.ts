@@ -33,7 +33,7 @@ export async function lambda_handler(event: any, context: any) {
   yesterday.setDate(yesterday.getDate() - 1);
   yesterday.setHours(yesterday.getHours() + 9); // UTC -> JST
   const report = await getReportData(adsense, yesterday);
-  await notify(report);
+  await notify(yesterday, report);
   if (
     !process.env.ZAIM_CONSUMER_KEY ||
     !process.env.ZAIM_CONSUMER_SECRET ||
