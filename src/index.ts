@@ -56,7 +56,7 @@ export async function lambda_handler(event: any, context: any) {
         accessToken: process.env.ZAIM_ACCESS_TOKEN,
         accessTokenSecret: process.env.ZAIM_ACCESS_TOKEN_SECRET
       },
-      report.today.earnings,
+      report.week.earnings,
       parseInt(process.env.ZAIM_CATEGORY_ID),
       parseInt(process.env.ZAIM_TO_ACCOUNT_ID),
       yesterday
