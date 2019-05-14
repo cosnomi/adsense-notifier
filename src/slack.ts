@@ -8,9 +8,10 @@ const webhookUrl = process.env.SLACK_WEBHOOK_URL;
 const slackUsername = "Adsense";
 
 export async function notify(report: Report, notifyType: NotifyType) {
+  // If it is both the end of the week and the end of the month, 3 notif should be pushed to Slack.
+  await notifyDailyReport(report);
+  if (notifyType === "weekly") await notifyWeeklyReport(report);
   if (notifyType === "monthly") await notifyMonthlyReport(report);
-  else if (notifyType === "weekly") await notifyWeeklyReport(report);
-  else await notifyDailyReport(report);
 }
 
 async function notifyDailyReport(report: Report) {
