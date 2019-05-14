@@ -22,6 +22,7 @@ export async function lambda_handler(event: any, context: any) {
   }
   const refresh_token = process.env.REFRESH_TOKEN;
   const adsense = google.adsense({
+    // @ts-ignore
     version: "v1.4",
     auth: getAuthenticatedOAuth2Client(
       client_id,

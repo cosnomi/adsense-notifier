@@ -9,13 +9,16 @@
     "build": "npx tsc",
     "prebuild": "sed -i -e 's/version: '\\''v1_4'\\''/version: '\\''v1.4'\\''/g' ./node_modules/googleapis/build/src/apis/adsense/v1.4.d.ts",
     "test": "npx jest",
-    "start": "npx tsc && node dest/index.js"
+    "start": "npx tsc && node dest/index.js",
+    "local-start": "npx tsc && node dest/local"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/dotenv": "^6.1.1",
     "@types/jest": "^24.0.12",
     "@types/node": "^11.13.0",
     "@types/readline-sync": "^1.4.3",
+    "dotenv": "^8.0.0",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.1"
