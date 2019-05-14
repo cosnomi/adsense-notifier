@@ -26,13 +26,15 @@ async function notifyDailyReport(report: Report) {
 }
 
 async function notifyWeeklyReport(report: Report) {
-  const { week, unpaid } = report;
+  const { week, unpaid, lastWeekSameDay } = report;
   await axios.post(webhookUrl, {
     username: slackUsername,
     icon_url: process.env.SLACK_ICON_URL,
     text: `Weekly Report: ${week.earnings}JPY ${week.clicks} clicks ${
       week.pageViews
-    } views / (unpaid: ${unpaid} JPY)`
+    } views / (unpaid: ${unpaid} JPY) same day of last week: ${
+      lastWeekSameDay.earnings
+    } JPY`
   });
 }
 
