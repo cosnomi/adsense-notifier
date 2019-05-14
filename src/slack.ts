@@ -8,9 +8,10 @@ const webhookUrl = process.env.SLACK_WEBHOOK_URL;
 const slackUsername = "Adsense";
 
 export async function notify(report: Report, notifyType: NotifyType) {
+  // If it is both the end of the week and the end of the month, 3 notif should be pushed to Slack.
+  await notifyDailyReport(report);
+  if (notifyType === "weekly") await notifyWeeklyReport(report);
   if (notifyType === "monthly") await notifyMonthlyReport(report);
-  else if (notifyType === "weekly") await notifyWeeklyReport(report);
-  else await notifyDailyReport(report);
 }
 
 async function notifyDailyReport(report: Report) {
@@ -20,12 +21,12 @@ async function notifyDailyReport(report: Report) {
     icon_url: process.env.SLACK_ICON_URL,
     text: `Daily Report: ${today.earnings} JPY / ${today.clicks} clicks / ${
       today.pageViews
-    } views`
+    } views /  same day of last week: ${lastWeekSameDay.earnings} JPY`
   });
 }
 
 async function notifyWeeklyReport(report: Report) {
-  const { week, unpaid } = report;
+  const { week, unpaid, lastWeekSameDay } = report;
   await axios.post(webhookUrl, {
     username: slackUsername,
     icon_url: process.env.SLACK_ICON_URL,
