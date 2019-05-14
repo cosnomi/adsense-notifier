@@ -21,7 +21,7 @@ async function notifyDailyReport(report: Report) {
     icon_url: process.env.SLACK_ICON_URL,
     text: `Daily Report: ${today.earnings} JPY / ${today.clicks} clicks / ${
       today.pageViews
-    } views`
+    } views /  same day of last week: ${lastWeekSameDay.earnings} JPY`
   });
 }
 
@@ -32,9 +32,7 @@ async function notifyWeeklyReport(report: Report) {
     icon_url: process.env.SLACK_ICON_URL,
     text: `Weekly Report: ${week.earnings}JPY ${week.clicks} clicks ${
       week.pageViews
-    } views / (unpaid: ${unpaid} JPY) same day of last week: ${
-      lastWeekSameDay.earnings
-    } JPY`
+    } views / (unpaid: ${unpaid} JPY)`
   });
 }
 
