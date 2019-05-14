@@ -31,7 +31,9 @@ export async function lambda_handler(event: any, context: any) {
       refresh_token
     )
   });
-  const yesterday = new Date();
+  const yesterday = process.env.MOCK_DATE
+    ? new Date(process.env.MOCK_DATE)
+    : new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   yesterday.setHours(yesterday.getHours() + 9); // UTC -> JST
   const report = await getReportData(adsense, yesterday);
