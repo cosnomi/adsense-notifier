@@ -1,6 +1,33 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: adsense-notifier
+Parameters:
+  AccessToken:
+    Type: String
+  ClientId:
+    Type: String
+  ClientSecret:
+    Type: String
+  RedirectUri:
+    Type: String
+  RefreshToken:
+    Type: String
+  SlackIconUrl:
+    Type: String
+  SlackWebhookUrl:
+    Type: String
+  ZaimAccessToken:
+    Type: String
+  ZaimAccessTokenSecret:
+    Type: String
+  ZaimCategoryId:
+    Type: String
+  ZaimConsumerKey:
+    Type: String
+  ZaimConsumerSecret:
+    Type: String
+  ZaimToAccountId:
+    Type: String
 Resources:
   AdsenseNotifier:
     Type: AWS::Serverless::Function
