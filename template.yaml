@@ -36,6 +36,21 @@ Resources:
       Runtime: nodejs8.10
       MemorySize: 128
       Timeout: 5
+      Environment:
+        Variables:
+          ACCESS_TOKEN: !Ref AccessToken
+          CLIENT_ID: !Ref ClientId
+          CLIENT_SECRET: !Ref ClientSecret
+          REDIRECT_URI: !Ref RedirectUri
+          REFRESH_TOKEN: !Ref RefreshToken
+          SLACK_ICON_URL: !Ref SlackIconUrl
+          SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl
+          ZAIM_ACCESS_TOKEN: !Ref ZaimAccessToken
+          ZAIM_ACCESS_TOKEN_SECRET: !Ref ZaimAccessTokenSecret
+          ZAIM_CATEGORY_ID: !Ref ZaimCategoryId
+          ZAIM_CONSUMER_KEY: !Ref ZaimConsumerKey
+          ZAIM_CONSUMER_SECRET: !Ref ZaimConsumerSecret
+          ZAIM_TO_ACCOUNT_ID: !Ref ZaimToAccountId
       Events:
         DailyEvent:
           Type: Schedule
