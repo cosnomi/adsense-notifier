@@ -16,6 +16,8 @@ Parameters:
     Type: String
   SlackWebhookUrl:
     Type: String
+  SlackChannel:
+    Type: String
   ZaimAccessToken:
     Type: String
   ZaimAccessTokenSecret:
@@ -45,6 +47,7 @@ Resources:
           REFRESH_TOKEN: !Ref RefreshToken
           SLACK_ICON_URL: !Ref SlackIconUrl
           SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl
+          SLACK_CHANNEL: !Ref SlackChannel
           ZAIM_ACCESS_TOKEN: !Ref ZaimAccessToken
           ZAIM_ACCESS_TOKEN_SECRET: !Ref ZaimAccessTokenSecret
           ZAIM_CATEGORY_ID: !Ref ZaimCategoryId
