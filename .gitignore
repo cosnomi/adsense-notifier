@@ -2,3 +2,4 @@ node_modules
 /dest
 template-packed.yaml
 .env
+.token.json
