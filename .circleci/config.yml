@@ -56,7 +56,7 @@ jobs:
           name: Deploy via AWS SAM
           command: |
             sam package --template-file template.yaml --output-template-file template-packed.yaml --s3-bucket adsense-notifier
-            sam deploy --template-file template-packed.yaml --stack-name adsense-notifier --parameter-overrides SlackWebhookUrl=$SLACK_WEBHOOK_URL
+            sam deploy --template-file template-packed.yaml --stack-name adsense-notifier --capabilities CAPABILITY_IAM --parameter-overrides SlackWebhookUrl=$SLACK_WEBHOOK_URL
   release:
     docker:
       - image: circleci/node:10.15-stretch
