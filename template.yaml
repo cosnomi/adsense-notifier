@@ -2,7 +2,33 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: adsense-notifier
 Parameters:
+  AccessToken:
+    Type: String
+  ClientId:
+    Type: String
+  ClientSecret:
+    Type: String
+  RedirectUri:
+    Type: String
+  RefreshToken:
+    Type: String
+  SlackIconUrl:
+    Type: String
   SlackWebhookUrl:
+    Type: String
+  SlackChannel:
+    Type: String
+  ZaimAccessToken:
+    Type: String
+  ZaimAccessTokenSecret:
+    Type: String
+  ZaimCategoryId:
+    Type: String
+  ZaimConsumerKey:
+    Type: String
+  ZaimConsumerSecret:
+    Type: String
+  ZaimToAccountId:
     Type: String
 Resources:
   AdsenseNotifier:
@@ -14,7 +40,20 @@ Resources:
       Timeout: 5
       Environment:
         Variables:
+          ACCESS_TOKEN: !Ref AccessToken
+          CLIENT_ID: !Ref ClientId
+          CLIENT_SECRET: !Ref ClientSecret
+          REDIRECT_URI: !Ref RedirectUri
+          REFRESH_TOKEN: !Ref RefreshToken
+          SLACK_ICON_URL: !Ref SlackIconUrl
           SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl
+          SLACK_CHANNEL: !Ref SlackChannel
+          ZAIM_ACCESS_TOKEN: !Ref ZaimAccessToken
+          ZAIM_ACCESS_TOKEN_SECRET: !Ref ZaimAccessTokenSecret
+          ZAIM_CATEGORY_ID: !Ref ZaimCategoryId
+          ZAIM_CONSUMER_KEY: !Ref ZaimConsumerKey
+          ZAIM_CONSUMER_SECRET: !Ref ZaimConsumerSecret
+          ZAIM_TO_ACCOUNT_ID: !Ref ZaimToAccountId
       Events:
         DailyEvent:
           Type: Schedule
