@@ -3,3 +3,4 @@ node_modules
 template-packed.yaml
 .env
 .token.js
+.token.json
