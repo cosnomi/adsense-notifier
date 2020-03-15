@@ -35,7 +35,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: dest/index.lambda_handler
-      Runtime: nodejs8.10
+      Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 5
       Environment:
